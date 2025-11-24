@@ -3,9 +3,6 @@ import streamlit as st
 from snowflake.snowpark.functions import col
 import requests
 
-#New section to display smoothiefroot nutrition information
-smoothiefroot_response = requests.get("https://my.smoothiefroot.com/api/fruit/watermelon")
-st.text(smoothiefroot_response.json())
 
 # Write directly to the app
 st.markdown("## :cup_with_straw: Customize Your Smoothie!:cup_with_straw:")
@@ -24,6 +21,11 @@ ingredients_list = st.multiselect(
     , my_dataframe
     , max_selections=5
 )
+
+#New section to display smoothiefroot nutrition information
+smoothiefroot_response = requests.get("https://my.smoothiefroot.com/api/fruit/watermelon")
+#st.text(smoothiefroot_response.json())
+sf_df = st.dataframe(data=smoothiefroot_response.json(), use_container_width=True)
 
 if ingredients_list:
     ingredients_string = ''
